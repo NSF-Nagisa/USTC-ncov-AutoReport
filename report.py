@@ -105,6 +105,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     autorepoter = Report(stuid=args.stuid, password=args.password, data_path=args.data_path)
     count = 5
+    print(args.stuid)
     while count != 0:
         ret = autorepoter.report()
         if ret != False:
