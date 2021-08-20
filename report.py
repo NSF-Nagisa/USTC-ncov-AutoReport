@@ -4,11 +4,17 @@ import json
 import time
 import datetime
 import pytz
+import random
 import re
 import sys
 import argparse
 from bs4 import BeautifulSoup
+from aip import AipOcr
 
+#aip argument
+APP_ID = '24730410'
+API_KEY = 'Z5gLsAgL3NTVmBTRMCrQ517m'
+SECRET_KEY = 'dCaVEOKwzot3lLFDbFjOyXqNoBDQkuG8'
 class Report(object):
     def __init__(self, stuid, password, data_path):
         self.stuid = stuid
@@ -82,13 +88,42 @@ class Report(object):
         data = {
             'model': 'uplogin.jsp',
             'service': 'https://weixine.ustc.edu.cn/2020/caslogin',
+            'CAS_LT': '',
             'username': self.stuid,
             'password': str(self.password),
             'warn': '',
-            'showCode': '',
+            'showCode': '1',
             'button': '',
+            'LT':''
         }
         session = requests.Session()
+
+        # get validateCode
+        header = {'user-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
+        code = session.get('https://passport.ustc.edu.cn/validatecode.jsp?type=login',headers=header)
+        
+
+        # with open('code.jpg','wb') as file:
+        #     file.write(code.content)
+        #     file.close
+
+        client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+        res = client.basicGeneral(code.content)
+        
+        for item in res['words_result']:
+           validate_code = item['words']
+        
+
+        # get CAS_LT
+        form = session.get(url).text
+        form = form.encode('ascii','ignore').decode('utf-8','ignore')
+        soup = BeautifulSoup(form, 'html.parser')
+        cas_lt = soup.find('input', {'name':'CAS_LT'})['value']
+
+
+        # login
+        data['LT'] = validate_code
+        data['CAS_LT'] = cas_lt
         session.post(url, data=data)
 
         print("login...")
