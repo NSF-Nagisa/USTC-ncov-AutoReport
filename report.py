@@ -5,6 +5,7 @@ import time
 import datetime
 import pytz
 import random
+import os
 import re
 import sys
 import argparse
@@ -44,8 +45,10 @@ class Report(object):
         with open(self.data_path, "r+") as f:
             data = f.read()
             data = json.loads(data)
-            data["_token"]=token
-
+            data["_token"] = token
+            data["jinji_lxr"] = os.environ["CONTACTNAME"]
+            data["jinji_guanxi"] = os.environ["CONTACTRALASHIP"]
+            data["jiji_mobile"] = os.environ["CONTACTPHONE"]
         headers = {
             'authority': 'weixine.ustc.edu.cn',
             'origin': 'https://weixine.ustc.edu.cn',
