@@ -1,4 +1,4 @@
-# encoding=utf8
+# -*- coding: utf-8 -*-
 import requests
 import json
 import time
@@ -47,7 +47,7 @@ class Report(object):
             soup = BeautifulSoup(data, 'html.parser')
             token = soup.find("input", {"name": "_token"})['value']
 
-            with open(self.data_path, "r+") as f:
+            with open(self.data_path, "rb") as f:
                 data = f.read()
                 data = json.loads(data)
                 data["_token"] = token
@@ -56,7 +56,7 @@ class Report(object):
                 data["jiji_mobile"] = os.environ["CONTACTPHONE"]
                 # data["jinji_lxr"] = "kk"
                 # data["jinji_guanxi"] = "kk"
-                # data["jiji_mobile"] = "13013331222"
+                # data["jiji_mobile"] = ""
             
             headers = {
                 'authority': 'weixine.ustc.edu.cn',
