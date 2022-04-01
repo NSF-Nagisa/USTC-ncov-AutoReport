@@ -51,12 +51,12 @@ class Report(object):
                 data = f.read()
                 data = json.loads(data)
                 data["_token"] = token
-                data["jinji_lxr"] = os.environ["CONTACTNAME"]
-                data["jinji_guanxi"] = os.environ["CONTACTRALASHIP"]
-                data["jiji_mobile"] = os.environ["CONTACTPHONE"]
-                # data["jinji_lxr"] = "kk"
-                # data["jinji_guanxi"] = "kk"
-                # data["jiji_mobile"] = ""
+                # data["jinji_lxr"] = os.environ["CONTACTNAME"]
+                # data["jinji_guanxi"] = os.environ["CONTACTRALASHIP"]
+                # data["jiji_mobile"] = os.environ["CONTACTPHONE"]
+                data["jinji_lxr"] = "kk"
+                data["jinji_guanxi"] = "kk"
+                data["jiji_mobile"] = "18189700666"
             
             headers = {
                 'authority': 'weixine.ustc.edu.cn',
@@ -92,13 +92,15 @@ class Report(object):
                     flag = True
         if ACROSS_CAMPUS:
             across_flag = self.across_campus_report(cookies, session)
-        flag= flag and across_flag
-        if flag == False:
-            print("Report FAILED!")
-        else:
-            print("Report SUCCESSFUL!")
+        print("Health report: ", flag, " across report: ", across_flag)
+        return flag and across_flag
+        # flag= flag and across_flag
+        # if flag == False:
+        #     print("Report FAILED!")
+        # else:
+        #     print("Report SUCCESSFUL!")
 
-        return flag
+        # return flag
 
     def across_campus_report(self, cookies, session):
         headers = {
