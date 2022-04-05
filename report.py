@@ -129,7 +129,8 @@ class Report(object):
             'start_date': start_date,
             'end_date': end_date,
             'return_college[]': '中校区',
-            't': '23'
+            'reason': '游泳',
+            't': '3'
         }
         resp = session.post('https://weixine.ustc.edu.cn/2020/apply/daliy/post', data=form, headers=headers)
         flag = False
