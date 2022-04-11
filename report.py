@@ -25,6 +25,7 @@ class Report(object):
         self.password = password
         self.data_path = data_path
 
+
     def report(self):
         loginsuccess = False
         retrycount = 5
@@ -51,12 +52,9 @@ class Report(object):
                 data = f.read()
                 data = json.loads(data)
                 data["_token"] = token
-                # data["jinji_lxr"] = os.environ["CONTACTNAME"]
-                # data["jinji_guanxi"] = os.environ["CONTACTRALASHIP"]
-                # data["jiji_mobile"] = os.environ["CONTACTPHONE"]
-                data["jinji_lxr"] = "kk"
-                data["jinji_guanxi"] = "kk"
-                data["jiji_mobile"] = "18189700666"
+                data["jinji_lxr"] = os.environ["CONTACTNAME"]
+                data["jinji_guanxi"] = os.environ["CONTACTRALASHIP"]
+                data["jiji_mobile"] = os.environ["CONTACTPHONE"]
             
             headers = {
                 'authority': 'weixine.ustc.edu.cn',
