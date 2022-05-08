@@ -89,17 +89,17 @@ class Report(object):
             #     print("{} second(s) before.".format(delta.seconds))
             #     if delta.seconds < 120:
             #         flag = True
-        if ACROSS_CAMPUS:
-            across_flag = self.across_campus_report(cookies, session)
-        print("Health report: ", flag, " across report: ", across_flag)
-        return flag and across_flag
+        # if ACROSS_CAMPUS:
+        #     across_flag = self.across_campus_report(cookies, session)
+        # print("Health report: ", flag, " across report: ", across_flag)
+        # return flag and across_flag
         # flag= flag and across_flag
         # if flag == False:
         #     print("Report FAILED!")
         # else:
         #     print("Report SUCCESSFUL!")
 
-        # return flag
+        return flag
 
     def across_campus_report(self, cookies, session):
         headers = {
